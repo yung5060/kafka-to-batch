@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="eaiMapper">
+    <select id="select" resultType="hashmap">
+        SELECT
+           ID
+            , ADDRESS
+            , EMAIL
+            , NAME
+            , PHONE
+            , SND_CD
+        FROM
+            CUSTOMER2
+        WHERE
+            SND_CD = 'N'
+        ORDER BY ID
+        LIMIT 0, #{_pagesize}
+    </select>
+    <insert id="insert" parameterType="hashmap">
+        INSERT INTO CUSTOMER (
+            ID
+            , ADDRESS
+            , EMAIL
+            , NAME
+            , PHONE
+            , SND_DTM
+        ) VALUES (
+            #{ID}
+            , #{ADDRESS}
+            , #{NAME}
+            , #{EMAIL}
+            , #{PHONE}
+            , NOW()
+        )
+    </insert>
+    <update id="update" parameterType="hashmap">
+        UPDATE CUSTOMER2
+        SET SND_CD = 'Y'
+            , SND_DTM = NOW()
+        WHERE ID = #{ID}
+    </update>
+</mapper>
